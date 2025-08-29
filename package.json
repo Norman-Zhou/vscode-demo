@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "repository": "https://github.com/Microsoft/vscode-extension-samples/helloworld-minimal-sample",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.83.1"
   },
   "categories": [
     "Other"
@@ -148,8 +148,8 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "@types/vscode": "^1.103.0",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.83.1",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
     "@vscode/test-cli": "^0.0.11",
