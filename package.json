@@ -2,7 +2,9 @@
   "name": "vscode-demo",
   "displayName": "vscode-demo",
   "description": "vscode-demo",
+  "publisher": "vscode-demo",
   "version": "0.0.1",
+  "repository": "https://github.com/Microsoft/vscode-extension-samples/helloworld-minimal-sample",
   "engines": {
     "vscode": "^1.103.0"
   },
@@ -16,8 +18,122 @@
       {
         "command": "vscode-demo.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "vscode-demo.selectServer",
+        "title": "Select MCP Server",
+        "category": "MCP Manager"
+      },
+      {
+        "command": "vscode-demo.selectServer",
+        "title": "Select MCP Server",
+        "category": "MCP Manager"
+      },
+      {
+        "command": "vscode-demo.refreshServers",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vscode-demo.addServer",
+        "title": "Add Server",
+        "icon": "$(add)"
+      },
+      {
+        "command": "vscode-demo.editServer",
+        "title": "Edit Server",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vscode-demo.deleteServer",
+        "title": "Delete Server",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vscode-demo.callServer",
+        "title": "Call Server",
+        "icon": "$(play)"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "mcpServerList",
+          "name": "MCP Manager",
+          "when": "true",
+          "icon": "server"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscode-demo.refreshServers",
+          "when": "view == mcpServerList",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-demo.addServer",
+          "when": "view == mcpServerList",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vscode-demo.callServer",
+          "when": "view == mcpServerList && viewItem == mcpServer",
+          "group": "inline"
+        },
+        {
+          "command": "vscode-demo.editServer",
+          "when": "view == mcpServerList && viewItem == mcpServer",
+          "group": "inline"
+        },
+        {
+          "command": "vscode-demo.deleteServer",
+          "when": "view == mcpServerList && viewItem == mcpServer",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "MCP Manager",
+      "properties": {
+        "vscode-demo.servers": {
+          "type": "array",
+          "default": [],
+          "description": "List of MCP servers",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Server name"
+              },
+              "url": {
+                "type": "string",
+                "description": "Server API URL"
+              },
+              "apiKey": {
+                "type": "string",
+                "description": "Authentication API key"
+              },
+              "headers": {
+                "type": "object",
+                "description": "Additional HTTP headers",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "url"
+            ]
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -31,17 +147,20 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
+    "@types/vscode": "^1.103.0",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "eslint": "^9.32.0",
-    "typescript": "^5.9.2",
-    "ts-loader": "^9.5.2",
-    "webpack": "^5.101.0",
-    "webpack-cli": "^6.0.1",
     "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.11.0"
   }
 }
